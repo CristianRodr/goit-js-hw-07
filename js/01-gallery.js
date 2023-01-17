@@ -3,18 +3,22 @@ import { galleryItems } from "./gallery-items.js";
 
 const gallery = document.querySelector(".gallery");
 
-//Truco
-//recorrer array y hacer una sola cadena con tags HTML
+// ~******************************************************~
+// 1. creacion de marca, plantilla
+// 2. recorrer array y hacer una sola cadena con tags HTML
+// 2. imagen original debe almacenarse en data-atributo source del elemento <img>
 const crearEtiquetas = (pictureItems) => {
   return pictureItems
     .map(
       (item) => `
     <div class = "gallery__item">
       <a class="gallery__link" href="${item.original}">
-        <img class="gallery__image" 
+        <img 
+        class="gallery__image" 
         src="${item.preview}" 
         data-source="${item.original}" 
-        alt="${item.description}"/>
+        alt="${item.description}
+        "/>
       </a>
     </div> `
     )
@@ -24,6 +28,12 @@ const crearEtiquetas = (pictureItems) => {
 const mostrarGaleria = crearEtiquetas(galleryItems);
 
 gallery.innerHTML = mostrarGaleria;
+
+// ~**************************************************~
+
+function accionBloqueo(event) {
+  event.preventDefault();
+}
 
 //accion_______________________________________________
 gallery.addEventListener("click", enPintura);
@@ -41,13 +51,11 @@ function enPintura(event) {
 `);
   instance.show();
 
+  // 3. Añada cerrar la ventana modal pulsando Escape
   gallery.addEventListener("keydown", (event) => {
     if (event.code === "Escape") {
       instance.close();
     }
   });
 }
-
-function accionBloqueo(event) {
-  event.preventDefault();
-}
+//_________________________________________________________
